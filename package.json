@@ -2,12 +2,12 @@
   "name": "web_floreslpp",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
-  },
+ "scripts": {
+  "dev": "cross-env NODE_OPTIONS=--max-old-space-size=16384 next dev",
+  "build": "next build",
+  "start": "next start",
+  "lint": "next lint"
+},
   "dependencies": {
     "next": "16.2.6",
     "react": "19.2.4",

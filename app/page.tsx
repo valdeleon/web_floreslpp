@@ -1,65 +1,150 @@
-import Image from "next/image";
+"use client"; // Necesario en Next.js para usar animaciones e interactividad del lado del cliente
+
+import React from 'react';
+import { motion } from 'framer-motion';
+
+const FLORES_CATALOGO = [
+  {
+    id: 1,
+    nombre: "Ramo de Girasoles Eternos",
+    descripcion: "Hermoso ramo de girasoles hechos a mano, ideal para regalar.",
+    precio: "$15.00",
+    imagen: "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: 2,
+    nombre: "Tulipanes de Colores",
+    descripcion: "Tulipanes individuales o en ramo del color que más te guste.",
+    precio: "$12.00",
+    imagen: "https://images.unsplash.com/photo-1520763185298-1b434c919102?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    id: 3,
+    nombre: "Ramo de Rosas Premium",
+    descripcion: "Rosas detalladas con limpiapipas de alta calidad que durarán para siempre.",
+    precio: "$20.00",
+    imagen: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&auto=format&fit=crop&q=60"
+  }
+];
+
+// Configuración de la animación base al hacer scroll
+const animacionScroll = {
+  hidden: { opacity: 0, y: 50 }, // Empieza invisible y 50px abajo
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.8, ease: "easeOut" } // Sube y se vuelve visible suavemente
+  }
+};
 
 export default function Home() {
+  const numeroTelefono = "1234567890"; // Cambialo por tu número real
+  const mensajeWhatsapp = encodeURIComponent("¡Hola JFMoments! Me interesan tus hermosas flores de limpiapipas. ¿Me das más información?");
+  const enlaceWhatsapp = `https://wa.me/${numeroTelefono}?text=${mensajeWhatsapp}`;
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-screen bg-pink-50 text-gray-800 font-sans overflow-x-hidden">
+      
+      {/* 1. HERO SECTION (Animación de entrada directa) */}
+      <header className="bg-gradient-to-r from-pink-400 to-rose-300 text-white text-center py-24 px-4 shadow-md">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h1 className="text-6xl font-extrabold tracking-tight mb-4 drop-shadow-sm">
+            🌸 JFMoments 🌸
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-xl max-w-2xl mx-auto font-light">
+            Flores y ramos artesanales hechos 100% a mano con limpiapipas. El regalo perfecto para capturar instantes eternos.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+          <a 
+            href={enlaceWhatsapp}
             target="_blank"
             rel="noopener noreferrer"
+            className="mt-8 inline-block bg-white text-pink-600 font-bold px-8 py-3 rounded-full shadow-lg hover:bg-pink-100 transition duration-300 transform hover:scale-105"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+            Haz tu pedido por WhatsApp
           </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        </motion.div>
+      </header>
+
+      {/* 2. SECCIÓN SOBRE MÍ / HISTORIA (Se activa al bajar) */}
+      <motion.section 
+        className="max-w-4xl mx-auto py-20 px-6 text-center"
+        variants={animacionScroll}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }} // Se ejecuta solo una vez al alcanzar el 30% de la sección
+      >
+        <h2 className="text-3xl font-bold text-pink-600 mb-4">Nuestra Historia</h2>
+        <p className="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
+          En <span className="font-semibold text-pink-500">JFMoments</span>, cada flor está diseñada con dedicación, paciencia y mucho amor. 
+          Buscamos transformar materiales sencillos en hermosas piezas de arte que alegren 
+          tus espacios o se conviertan en un recuerdo inolvidable para alguien especial.
+        </p>
+      </motion.section>
+
+      {/* 3. CATÁLOGO DE PRODUCTOS */}
+      <section className="bg-white py-20 px-6 shadow-inner">
+        <div className="max-w-6xl mx-auto">
+          <motion.h2 
+            className="text-3xl font-bold text-center text-pink-600 mb-12"
+            variants={animacionScroll}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
           >
-            Documentation
-          </a>
+            Nuestro Catálogo
+          </motion.h2>
+          
+          {/* Tarjetas con animaciones independientes */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {FLORES_CATALOGO.map((flor, index) => (
+              <motion.div 
+                key={flor.id} 
+                className="border border-pink-100 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 flex flex-col bg-white"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.2 }} // Delay escalonado para que aparezcan una por una
+              >
+                <div className="h-64 overflow-hidden relative bg-gray-100">
+                  <img 
+                    src={flor.imagen} 
+                    alt={flor.nombre}
+                    className="w-full h-full object-cover hover:scale-110 transition duration-500"
+                  />
+                </div>
+                <div className="p-6 flex-grow flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">{flor.nombre}</h3>
+                    <p className="text-gray-600 text-sm mb-4">{flor.descripcion}</p>
+                  </div>
+                  <div className="flex items-center justify-between mt-4">
+                    <span className="text-2xl font-extrabold text-pink-600">{flor.precio}</span>
+                    <a 
+                      href={enlaceWhatsapp}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-pink-500 hover:bg-pink-600 text-white text-xs font-bold py-2 px-4 rounded-lg transition duration-200"
+                    >
+                      Preguntar
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </main>
+      </section>
+
+      {/* 4. FOOTER */}
+      <footer className="bg-pink-600 text-white text-center py-8 px-4">
+        <p className="text-sm">© {new Date().getFullYear()} JFMoments - Hecho con amor 🌸</p>
+        <p className="text-xs text-pink-200 mt-2">Página web oficial - Catálogo de Flores Eternas</p>
+      </footer>
+
     </div>
   );
 }
