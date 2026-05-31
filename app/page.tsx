@@ -29,11 +29,13 @@ const FLORES_CATALOGO = [
 
 // Configuración de la animación base al hacer scroll
 const animacionScroll = {
-  hidden: { opacity: 0, y: 50 }, // Empieza invisible y 50px abajo
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { duration: 0.8, ease: "easeOut" } // Sube y se vuelve visible suavemente
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8
+    }
   }
 };
 
