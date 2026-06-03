@@ -41,7 +41,7 @@ const animacionScroll = {
 };
 
 export default function Home() {
-  const numeroTelefono = "1234567890"; // Cambialo por tu número real
+  const numeroTelefono = "3002533999"; // Cambialo por tu número real
   const mensajeWhatsapp = encodeURIComponent("¡Hola JFMoments! Me interesan tus hermosas flores de limpiapipas. ¿Me das más información?");
   const enlaceWhatsapp = `https://wa.me/${numeroTelefono}?text=${mensajeWhatsapp}`;
 
