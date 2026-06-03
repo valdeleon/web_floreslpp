@@ -1,6 +1,7 @@
 "use client"; // Necesario en Next.js para usar animaciones e interactividad del lado del cliente
 
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 const FLORES_CATALOGO = [
@@ -112,10 +113,13 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: index * 0.2 }} // Delay escalonado para que aparezcan una por una
               >
                 <div className="h-64 overflow-hidden relative bg-gray-100">
-                  <img 
-                    src={flor.imagen} 
+                  <Image
+                    src={flor.imagen}
                     alt={flor.nombre}
-                    className="w-full h-full object-cover hover:scale-110 transition duration-500"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover hover:scale-110 transition duration-500"
+                    unoptimized
                   />
                 </div>
                 <div className="p-6 flex-grow flex flex-col justify-between">
